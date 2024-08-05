@@ -3,6 +3,7 @@ package com.loulysoft.springcloudconfigclient.controller;
 
 import com.loulysoft.springcloudconfigclient.properties.DbProperties;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,9 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@RefreshScope
 public class GreetingController {
-
-    @Value("${my.greeting: default value}")
+    @Value("${my.greeting}")
     private String greetingMessage;
 
     @Value("some static Message")
@@ -40,7 +41,7 @@ public class GreetingController {
 
     @GetMapping("/greeting")
     public String greeting(){
-        return greetingMessage + listValues;
+        return greetingMessage;
        // return "url: " + db.getConnection() + " ,host: " + db.getHost() + " ,port: " + db.getPort();
     }
 
